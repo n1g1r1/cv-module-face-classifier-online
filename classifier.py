@@ -9,10 +9,10 @@ class NumPyArangeEncoder(json.JSONEncoder):
             return obj.tolist() # or map(int, obj)
         return json.JSONEncoder.default(self, obj)
 
-def classify(server_url, image_np):
+def classify(recognition_server_api_url, image_np):
 
     data = {}
     data["image"]= json.dumps(image_np.tolist())
     data["mode"]= "predict"
-    response = requests.post(server_url, json = data)
+    response = requests.post(recognition_server_api_url, json = data)
     return response.json()["label"], float(response.json()["probability"])
